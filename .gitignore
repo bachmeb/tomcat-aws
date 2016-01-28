@@ -16,3 +16,7 @@ hs_err_pid*
 
 # Tomcat build.properties file
 build.properties
+
+# Tomcat build folders
+build/
+dist/
