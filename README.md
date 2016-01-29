@@ -303,7 +303,11 @@ includeantruntime="false"
 ```xml
 Hello <a href="./there">There</a>.
 ```
-
+##### Make a Java class
+    mkdir -p src/com/example/words
+    nano -i src/com/example/words/HelloServlet.java
+  
+##### Code the class
 ```java
 package com.example.cup;
 
