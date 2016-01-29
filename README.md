@@ -2,6 +2,8 @@
 
 Build routine to deploy a new webapp using Tomcat on AWS
 
+##### [References](/docs/references.md)
+
 ##### Create a new vm
 https://aws.amazon.com/ec2/
 
