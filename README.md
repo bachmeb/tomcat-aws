@@ -54,7 +54,7 @@ https://aws.amazon.com/ec2/
 
 ##### Add Catalina home and manager username and password
     catalina.home=/usr/share/tomcat7
-    app.name=supercoolapp
+    app.name=hello
     manager.username=abc
     manager.password=123
 
