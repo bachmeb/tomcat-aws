@@ -305,3 +305,19 @@ includeantruntime="false"
 
 ##### Clean, prepare, and compile the project
     ant -v all
+
+##### Create an index file
+    cd ~/git/projectfolder/web/
+    nano index.html
+
+##### Edit the XML file
+```xml
+HI THERE
+```
+
+##### Reinstall the project
+    ant -v all
+    ant -v install
+
+##### Use a web browser to view the web application
+    http://[ec2.ipa.ddr.ess]:8080/hello
