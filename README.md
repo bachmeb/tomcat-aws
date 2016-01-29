@@ -259,26 +259,15 @@ includeantruntime="false"
     PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 <web-app>
-    <display-name>My Web Application</display-name><!-- UPDATE THIS -->
-    <description>
-      This is version X.X of an application to perform
-      a wild and wonderful task, based on servlets and
-      JSP pages.  It was written by Dave Developer
-      (dave@mycompany.com), who should be contacted for
-      more information.
-    </description>
-    <context-param>
-      <param-name>webmaster</param-name>
-      <param-value>myaddress@mycompany.com</param-value><!-- UPDATE THIS -->
-      <description>
-        The EMAIL address of the administrator to whom questions
-        and comments about this application should be addressed.
-      </description><!-- UPDATE THIS -->
-    </context-param>
-    <session-config>
-      <session-timeout>30</session-timeout>    <!-- 30 minutes -->
-    </session-config>
-
+    <display-name>Hi There</display-name>
+    <servlet>
+        <servlet-name>greeting</servlet-name>
+        <servlet-class>com.example.words.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>greeting</servlet-name>
+        <url-pattern>/there</url-pattern>
+    </servlet-mapping>
 </web-app>
 ```
 
@@ -312,12 +301,35 @@ includeantruntime="false"
 
 ##### Edit the XML file
 ```xml
-HI THERE
+Hello <a href="./there">There</a>.
 ```
 
+```java
+package com.example.cup;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class HelloServlet extends HttpServlet {
+
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)$
+        PrintWriter out = response.getWriter();
+        out.println("What's up?");
+        out.close();
+    }
+    
+}
+```
 ##### Reinstall the project
-    ant -v all
-    ant -v install
+    ant all; ant remove; ant install
 
 ##### Use a web browser to view the web application
     http://[ec2.ipa.ddr.ess]:8080/hello
