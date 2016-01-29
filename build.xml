@@ -10,7 +10,6 @@
 <!-- ==================== File and Directory Names ======================== -->
 
 
-  <property name="app.name"      value="myapp"/>
   <property name="app.path"      value="/${app.name}"/>
   <property name="app.version"   value="0.1-dev"/>
 
