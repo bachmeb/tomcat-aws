@@ -107,6 +107,7 @@ https://aws.amazon.com/ec2/
 ##### Install Tomcat
     yum install tomcat7
     yum install tomcat7-webapps
+    yum install tomcat7-admin-webapps
 
 ##### Ask where is tomcat7?
     whereis tomcat7
