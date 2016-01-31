@@ -7,6 +7,9 @@ Build routine to deploy a new webapp using Tomcat on AWS
 ##### Create a new vm
 https://aws.amazon.com/ec2/
 
+##### Download the key pair and change the mode to 400
+    chmod 400 newkey.pem
+    
 ##### Connect via SSH
     ssh -i pemfile.pem ec2-user@[ec2.ipa.ddr.ess]
 
