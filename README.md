@@ -134,6 +134,9 @@ https://aws.amazon.com/ec2/
 ##### Go to the Tomcat welcome page
     lynx localhost:8080
     
+##### Read the localhost access log
+    cat /var/log/tomcat7/localhost_*
+    
 ##### Add tomcat7 to autostart
     chkconfig
     chkconfig tomcat7 on 
@@ -146,7 +149,7 @@ https://aws.amazon.com/ec2/
     ls -l
     cat conf/tomcat7.conf
     
-##### This is where the CATALINA_BASE and CATALINA_HOME environment variables are set
+##### tomcat7.conf is where the CATALINA_BASE and CATALINA_HOME environment variables are set
 ```
 # Where your java installation lives
 JAVA_HOME="/usr/lib/jvm/jre"
@@ -193,25 +196,173 @@ CATALINA_PID="/var/run/tomcat7.pid"
 ```
 
 ##### Read the Tomcat init file
-    less /etc/init.d/tomcat7 ​
+    less /etc/init.d/tomcat7
 
 ##### Read the Tomcat launch script
     less /usr/sbin/tomcat7
 
 ##### Read the server.xml file
-    cat /usr/share/tomcat7/conf/server.xml ​
+    cat /usr/share/tomcat7/conf/server.xml
+
+```xml
+
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!-- Note:  A "Server" is not itself a "Container", so you may not
+     define subcomponents such as "Valves" at this level.
+     Documentation at /docs/config/server.html
+ -->
+<Server port="8005" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <!-- Security listener. Documentation at /docs/config/listeners.html
+  <Listener className="org.apache.catalina.security.SecurityListener" />
+  -->
+  <!--APR library loader. Documentation at /docs/apr.html -->
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
+  <Listener className="org.apache.catalina.core.JasperListener" />
+  <!-- Prevent memory leaks due to use of particular java/javax APIs-->
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <!-- Global JNDI resources
+       Documentation at /docs/jndi-resources-howto.html
+  -->
+  <GlobalNamingResources>
+    <!-- Editable user database that can also be used by
+         UserDatabaseRealm to authenticate users
+    -->
+    <Resource name="UserDatabase" auth="Container"
+              type="org.apache.catalina.UserDatabase"
+              description="User database that can be updated and saved"
+              factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
+              pathname="conf/tomcat-users.xml" />
+  </GlobalNamingResources>
+
+  <!-- A "Service" is a collection of one or more "Connectors" that share
+       a single "Container" Note:  A "Service" is not itself a "Container",
+       so you may not define subcomponents such as "Valves" at this level.
+       Documentation at /docs/config/service.html
+   -->
+  <Service name="Catalina">
+
+    <!--The connectors can use a shared executor, you can define one or more named thread pools-->
+    <!--
+    <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
+        maxThreads="150" minSpareThreads="4"/>
+    -->
+
+
+    <!-- A "Connector" represents an endpoint by which requests are received
+         and responses are returned. Documentation at :
+         Java HTTP Connector: /docs/config/http.html (blocking & non-blocking)
+         Java AJP  Connector: /docs/config/ajp.html
+         APR (HTTP/AJP) Connector: /docs/apr.html
+         Define a non-SSL HTTP/1.1 Connector on port 8080
+    -->
+    <Connector port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    <!-- A "Connector" using the shared thread pool-->
+    <!--
+    <Connector executor="tomcatThreadPool"
+               port="8080" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+    -->
+    <!-- Define a SSL HTTP/1.1 Connector on port 8443
+         This connector uses the BIO implementation that requires the JSSE
+         style configuration. When using the APR/native implementation, the
+         OpenSSL style configuration is required as described in the APR/native
+         documentation -->
+    <!--
+    <Connector port="8443" protocol="org.apache.coyote.http11.Http11Protocol"
+               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" />
+    -->
+
+    <!-- Define an AJP 1.3 Connector on port 8009 -->
+    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
+
+
+    <!-- An Engine represents the entry point (within Catalina) that processes
+         every request.  The Engine implementation for Tomcat stand alone
+         analyzes the HTTP headers included with the request, and passes them
+         on to the appropriate Host (virtual host).
+         Documentation at /docs/config/engine.html -->
+
+    <!-- You should set jvmRoute to support load-balancing via AJP ie :
+    <Engine name="Catalina" defaultHost="localhost" jvmRoute="jvm1">
+    -->
+    <Engine name="Catalina" defaultHost="localhost">
+
+      <!--For clustering, please take a look at documentation at:
+          /docs/cluster-howto.html  (simple how to)
+          /docs/config/cluster.html (reference documentation) -->
+      <!--
+      <Cluster className="org.apache.catalina.ha.tcp.SimpleTcpCluster"/>
+      -->
+
+      <!-- Use the LockOutRealm to prevent attempts to guess user passwords
+           via a brute-force attack -->
+      <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <!-- This Realm uses the UserDatabase configured in the global JNDI
+             resources under the key "UserDatabase".  Any edits
+             that are performed against this UserDatabase are immediately
+             available for use by the Realm.  -->
+        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
+               resourceName="UserDatabase"/>
+      </Realm>
+
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+
+        <!-- SingleSignOn valve, share authentication between web applications
+             Documentation at: /docs/config/valve.html -->
+        <!--
+        <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        -->
+
+        <!-- Access log processes all example.
+             Documentation at: /docs/config/valve.html
+             Note: The pattern used is equivalent to using pattern="common" -->
+        <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+               prefix="localhost_access_log." suffix=".txt"
+               pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+
+      </Host>
+    </Engine>
+  </Service>
+</Server>
+```
 
 ##### Read the web.xml file
-    more /usr/share/tomcat7/conf/web.xml ​
-
-##### Read the localhost access log
-    cat /var/log/tomcat7/localhost_*
+    less /usr/share/tomcat7/conf/web.xml 
 
 ##### grep the contents of the passwd file to see that a user named tomcat has been created
     cat /etc/passwd |grep tomcat
 
 ##### Create a user account for development
     useradd {myaccount}
+    
+##### Set the password for your development account
+    passwd {myaccount}
 
 ##### Edit sudoers file
     nano /etc/sudoers
@@ -249,14 +400,17 @@ CATALINA_PID="/var/run/tomcat7.pid"
     manager.username=abc
     manager.password=123
 
-##### Set permissions on home folder
-    ls -l /home/{myaccount}
-    chmod -R 775 /home/{myaccount}
-    ls -l /home/{myaccount}
-
 ##### Check environment variable for home directory
     echo $HOME
 
+##### Set permissions on home folder
+    ls -l $HOME
+    chmod -R 775 $HOME
+    ls -l $HOME
+
+##### Install git
+    yum install git
+	
 ##### Create project folder
     mkdir -p ~/git/projectfolder
 
@@ -278,10 +432,13 @@ CATALINA_PID="/var/run/tomcat7.pid"
     git fetch
 
 ##### Pull from remote
-    git pull
+    git pull origin master
 
+##### Check status
+    git status
+    
 ##### Push to remote
-    git push
+    git push --set-upstream origin master
 
 ##### Create Build XML File
     cd ~/git/projectfolder
@@ -461,6 +618,9 @@ includeantruntime="false"
     </servlet-mapping>
 </web-app>
 ```
+
+##### Install ant
+    yum install ant
 
 ##### List installed projects
     ant -v list
