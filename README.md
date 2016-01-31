@@ -73,6 +73,28 @@ https://aws.amazon.com/ec2/
 ##### Update yum
     yum update
 
+##### Show all of the environment variables
+    printenv
+    declare
+
+##### Show the current JAVA_HOME
+    env | grep JAVA_HOME
+
+##### Check the Java version
+	java -version
+
+##### See if the Java compiler is installed
+	javac -version
+
+##### Search yum for openjdk
+    yum search openjdk
+
+##### Install the Open JDK version 1.7
+    install java-1.7.0-openjdk-devel.x86_64
+
+##### Check the Java compiler version
+    javac -version
+
 ##### List the available tomcat packages
     yum --enablerepo="*" list available | grep tomcat
 
@@ -115,6 +137,78 @@ https://aws.amazon.com/ec2/
 ##### Add tomcat7 to autostart
     chkconfig
     chkconfig tomcat7 on 
+
+##### Look for tomcat in the output of the process status command to see where the tomcat executable is running from
+    ps -ef | grep tomcat
+
+##### Read the Tomcat config file
+    cd /usr/share/tomcat7/
+    ls -l
+    cat conf/tomcat7.conf
+    
+##### This is where the CATALINA_BASE and CATALINA_HOME environment variables are set
+```
+# Where your java installation lives
+JAVA_HOME="/usr/lib/jvm/jre"
+
+# Where your tomcat installation lives
+CATALINA_BASE="/usr/share/tomcat7"
+CATALINA_HOME="/usr/share/tomcat7"
+JASPER_HOME="/usr/share/tomcat7"
+CATALINA_TMPDIR="/var/cache/tomcat7/temp"
+
+# You can pass some parameters to java here if you wish to
+#JAVA_OPTS="-Xminf0.1 -Xmaxf0.3"
+
+# Use JAVA_OPTS to set java.library.path for libtcnative.so
+#JAVA_OPTS="-Djava.library.path=/usr/lib"
+
+# What user should run tomcat
+TOMCAT_USER="tomcat"
+
+# You can change your tomcat locale here
+#LANG="en_US"
+
+# Run tomcat under the Java Security Manager
+SECURITY_MANAGER="false"
+
+# Maximum time to wait in seconds, before killing process
+SHUTDOWN_WAIT="30"
+
+# Maximum time to wait in seconds, after killing the tomcat process
+KILL_SLEEP_WAIT="5" 
+
+# Whether to annoy the user with "attempting to shut down" messages or not
+SHUTDOWN_VERBOSE="false"
+
+# Set the TOMCAT_PID location
+CATALINA_PID="/var/run/tomcat7.pid"
+
+# Connector port is 8080 for this tomcat instance
+#CONNECTOR_PORT="8080"
+
+# If you wish to further customize your tomcat environment,
+# put your own definitions here
+# (i.e. LD_LIBRARY_PATH for some jdbc drivers)
+```
+
+##### Read the Tomcat init file
+    less /etc/init.d/tomcat7 ​
+
+##### Read the Tomcat launch script
+    less /usr/sbin/tomcat7
+
+##### Read the server.xml file
+    cat /usr/share/tomcat7/conf/server.xml ​
+
+##### Read the web.xml file
+    more /usr/share/tomcat7/conf/web.xml ​
+
+##### Read the localhost access log
+    cat /var/log/tomcat7/localhost_*
+
+##### grep the contents of the passwd file to see that a user named tomcat has been created
+    cat /etc/passwd |grep tomcat
 
 ##### Create a user account for development
     useradd {myaccount}
