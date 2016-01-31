@@ -81,10 +81,10 @@ https://aws.amazon.com/ec2/
     env | grep JAVA_HOME
 
 ##### Check the Java version
-	java -version
+    java -version
 
 ##### See if the Java compiler is installed
-	javac -version
+    javac -version
 
 ##### Search yum for openjdk
     yum search openjdk
@@ -94,6 +94,9 @@ https://aws.amazon.com/ec2/
 
 ##### Check the Java compiler version
     javac -version
+
+##### Set the JAVA_HOME environment variable to the Open JDK directory
+    export JAVA_HOME='/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/'
 
 ##### List the available tomcat packages
     yum --enablerepo="*" list available | grep tomcat
