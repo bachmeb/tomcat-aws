@@ -688,7 +688,7 @@ public class HelloServlet extends HttpServlet {
 }
 ```
 ##### Reinstall the project
-    ant all; ant remove; ant install
+    ant remove all install
 
 ##### Use a web browser to view the web application
     http://[ec2.ipa.ddr.ess]:8080/hello
