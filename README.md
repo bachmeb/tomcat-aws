@@ -7,20 +7,114 @@ Build routine to deploy a new webapp using Tomcat on AWS
 ##### Create a new vm
 https://aws.amazon.com/ec2/
 
+##### Configure the security group to allow ICMP, SSH, and TCP traffic from your IP address
+    Type	    Protocol	Port Range	Source
+    All TCP	    TCP	        0 - 65535	your ip address/32
+    SSH	        TCP	        22	        your ip address/32
+    All ICMP	All	        N/A         your ip address/32
+
 ##### Download the key pair and change the mode to 400
     chmod 400 pemfile.pem
+
+##### Ping the IP address to confirm that ICMP traffic is allowed from your IP address
+    ping [ec2.ipa.ddr.ess]
+
+##### Update the DNS record at the domain registrar to point the domain name to the new IP address
+    ; A Records
+    @ 600 IN A [000.000.000.000] <-- The EC2 IP address
+    mail 600 IN A [000.000.000.000] <-- The EC2 IP address
     
+    ; CNAME Records
+    ftp 600 IN CNAME @
+    www 600 IN CNAME @
+    
+    ; MX Records
+    @ 600 IN MX 1 [mail.somedomain.whatever]
+
 ##### Connect via SSH
     ssh -i pemfile.pem ec2-user@[ec2.ipa.ddr.ess]
 
 ##### Switch to root 
     sudo su
 
+##### Check the Linux distro version
+    cat /proc/version
+
+##### Edit the sysconfig network file
+    nano /etc/sysconfig/network
+    
+##### Change the hostname and save the file
+    HOSTNAME=[subddomain?].[somedomain.whatever]
+
+##### Change the command prompt to show the full hostname
+    export PS1='[\u@\H \W]\$'
+
+##### Reboot
+    reboot
+
+##### Ping the domain name to confirm the DNS update.
+    ping [somedomain.whatever]
+
+##### Reconnect
+    ssh -i [pem file] ec2-user@[somedomain.whatever]
+
+##### Check the hostname of the ec2 instance
+    hostname
+
+##### Check the DNS domain name of the ec2 instance
+    dnsdomainname
+
+##### Switch to root
+    sudo su
+
+##### Stop Sendmail
+    /etc/init.d/sendmail stop
+
+##### Update yum
+    yum update
+
+##### List the available tomcat packages
+    yum --enablerepo="*" list available | grep tomcat
+
+##### Search yum for tomcat7
+    yum search tomcat7
+
 ##### Install Tomcat
     yum install tomcat7
+    yum install tomcat7-webapps
+
+##### Ask where is tomcat7?
+    whereis tomcat7
+
+##### Get a listing of the Catalina Base directory
+    ls -l /usr/share/tomcat7/
+    
+    total 4
+    drwxr-xr-x 2 root root   4096 Jan 31 18:48 bin
+    lrwxrwxrwx 1 root tomcat   12 Jan 31 18:48 conf -> /etc/tomcat7
+    lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 lib -> /usr/share/java/tomcat7
+    lrwxrwxrwx 1 root tomcat   16 Jan 31 18:48 logs -> /var/log/tomcat7
+    lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 temp -> /var/cache/tomcat7/temp
+    lrwxrwxrwx 1 root tomcat   24 Jan 31 18:48 webapps -> /var/lib/tomcat7/webapps
+    lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 work -> /var/cache/tomcat7/work
 
 ##### Start Tomcat service
+    service tomcat7 status
     service tomcat7 start
+    service tomcat7 status
+
+##### Check what is listening on port 8080
+    lsof -ni:8080
+
+##### Install Lynx
+    yum install lynx
+
+##### Go to the Tomcat welcome page
+    lynx localhost:8080
+    
+##### Add tomcat7 to autostart
+    chkconfig
+    chkconfig tomcat7 on 
 
 ##### Create a user account for development
     useradd {myaccount}
