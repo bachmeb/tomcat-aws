@@ -104,9 +104,10 @@ https://aws.amazon.com/ec2/
 
 ##### Edit sudoers file
 	vim /etc/sudoers
+	:$
 
 ##### Add development account to sudoers file
-	## ALLOW {MYACCOUNT} TO SUDO
+	## ALLOW ME TO SUDO
 	[your new account name] ALL=(ALL) ALL
 
 ##### Switch to development user
@@ -119,7 +120,7 @@ https://aws.amazon.com/ec2/
 	echo $HOME
 
 ##### Go home
-	cd $HOME
+	cd ~
 
 ##### Check the Linux distro version
 	cat /proc/version
@@ -159,7 +160,7 @@ https://aws.amazon.com/ec2/
 	yum search openjdk
 	
 ##### Install the Open JDK version 1.7
-	sudo yum install java-1.7.0-openjdk-devel.x86_64
+	sudo yum install java-1.7.0-openjdk-devel
 
 ##### Check the Java compiler version
 	javac -version
@@ -191,45 +192,54 @@ https://aws.amazon.com/ec2/
 ##### Echo the $JAVA_HOME environment variable
 	echo $JAVA_HOME
 
-##### List the available tomcat packages
+##### List the available tomcat packages in yum
     yum --enablerepo="*" list available | grep tomcat
 
 ##### Search yum for tomcat7
     yum search tomcat7
 
 ##### Install Tomcat
-    yum install tomcat7
-    yum install tomcat7-webapps
-    yum install tomcat7-admin-webapps
+    sudo yum install tomcat7 tomcat7-webapps tomcat7-admin-webapps
 
 ##### Ask where is tomcat7?
     whereis tomcat7
 
 ##### Get a listing of the Catalina Base directory
     ls -l /usr/share/tomcat7/
-    
-    total 4
-    drwxr-xr-x 2 root root   4096 Jan 31 18:48 bin
-    lrwxrwxrwx 1 root tomcat   12 Jan 31 18:48 conf -> /etc/tomcat7
-    lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 lib -> /usr/share/java/tomcat7
-    lrwxrwxrwx 1 root tomcat   16 Jan 31 18:48 logs -> /var/log/tomcat7
-    lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 temp -> /var/cache/tomcat7/temp
-    lrwxrwxrwx 1 root tomcat   24 Jan 31 18:48 webapps -> /var/lib/tomcat7/webapps
-    lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 work -> /var/cache/tomcat7/work
+```    
+total 4
+drwxr-xr-x 2 root root   4096 Jan 31 18:48 bin
+lrwxrwxrwx 1 root tomcat   12 Jan 31 18:48 conf -> /etc/tomcat7
+lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 lib -> /usr/share/java/tomcat7
+lrwxrwxrwx 1 root tomcat   16 Jan 31 18:48 logs -> /var/log/tomcat7
+lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 temp -> /var/cache/tomcat7/temp
+lrwxrwxrwx 1 root tomcat   24 Jan 31 18:48 webapps -> /var/lib/tomcat7/webapps
+lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 work -> /var/cache/tomcat7/work
+```
 
+##### Check what is listening on port 8080
+    sudo lsof -ni:8080
+    
 ##### Start Tomcat service
     service tomcat7 status
     service tomcat7 start
-    service tomcat7 status
+    sudo service --status-all | grep tomcat
+
+##### Grep the output of the process status command for tomcat
+	ps -ef | grep tomcat
 
 ##### Check what is listening on port 8080
-    lsof -ni:8080
+    sudo lsof -ni:8080
 
 ##### Install Lynx
-    yum install lynx
+    sudo yum install lynx
 
 ##### Go to the Tomcat welcome page
     lynx localhost:8080
+```
+Apache Tomcat/7.0.65
+If you're seeing this, you've successfully installed Tomcat. Congratulations!
+```
     
 ##### Read the localhost access log
     cat /var/log/tomcat7/localhost_*
