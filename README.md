@@ -221,8 +221,8 @@ lrwxrwxrwx 1 root tomcat   23 Jan 31 18:48 work -> /var/cache/tomcat7/work
     sudo lsof -ni:8080
     
 ##### Start Tomcat service
-    service tomcat7 status
-    service tomcat7 start
+    sudo service tomcat7 status
+    sudo service tomcat7 start
     sudo service --status-all | grep tomcat
 
 ##### Grep the output of the process status command for tomcat
@@ -917,7 +917,9 @@ fi
 
 ##### Read the web.xml file
     less /usr/share/tomcat7/conf/web.xml 
+```
 
+```
 ##### grep the contents of the passwd file to see that a user named tomcat has been created
     cat /etc/passwd |grep tomcat
     
