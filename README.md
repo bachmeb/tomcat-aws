@@ -242,7 +242,10 @@ If you're seeing this, you've successfully installed Tomcat. Congratulations!
 ```
     
 ##### Read the localhost access log
-    cat /var/log/tomcat7/localhost_*
+    sudo ls -l /usr/share/tomcat7/logs/
+    sudo cat /usr/share/tomcat7/logs/catalina.out
+	sudo find /usr/share/tomcat7/logs/ -name localhost* -exec cat {} \;
+
     
 ##### Add tomcat7 to autostart
     chkconfig
