@@ -933,26 +933,25 @@ fi
 
 </tomcat-users>
 ```
-
-##### Create a Build Properties file in developer's home directory
+##### Restart the Tomcat service to pick up the changes to tomcat-users.xml
+	sudo service tomcat7 status
+	
+##### Check environment variable for home directory
+    echo $HOME
+    
+##### Create a Build Properties file in your home directory
     cd ~
     pwd
     vim build.properties
 
-##### Add Catalina home, app name, manager username and password
-*These values are used by the build.xml file*
-    catalina.home=/usr/share/tomcat7
-    app.name=hello
-    manager.username=abc
-    manager.password=123
-
-##### Check environment variable for home directory
-    echo $HOME
-
-##### Set permissions on home folder
-    ls -l $HOME
-    chmod -R 775 $HOME
-    ls -l $HOME
+##### Add Catalina home, app name, manager username and password to the build.properties file
+*These values are used by the build.xml file*  
+```
+catalina.home=/usr/share/tomcat7
+app.name=hello
+manager.username=abc
+manager.password=123
+```
 
 ##### Install git
     sudo yum install git
@@ -1514,53 +1513,297 @@ fi
 ```
 
 ##### Install ant
-    yum install ant
+    sudo yum install ant
 
 ##### List installed projects
     ant -v list
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `list' is [list]
+Complete build sequence is [list, prepare, compile, reload, install, remove, javadoc, clean, dist, all, ]
+
+list:
+     [list] OK - Listed applications for virtual host localhost
+     [list] /manager:running:1:manager
+     [list] /:running:0:ROOT
+     [list] /sample:running:0:sample
+     [list] /examples:running:0:examples
+     [list] /host-manager:running:0:host-manager
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+```
+    
+##### Make a web directory in the project folder
+	mkdir web
 
 ##### Prepare the project
-    ant -v prepare
+	ant -v prepare
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `prepare' is [prepare]
+Complete build sequence is [prepare, compile, reload, install, remove, list, javadoc, clean, dist, all, ]
 
+prepare:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+     [copy] No sources found.
+     [copy]  added as  is outdated.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/lib because it already exists.
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+```
+
+##### Make a src directory in the project folder
+	mkdir src
+	
 ##### Compile the project
     ant -v compile
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `compile' is [prepare, compile]
+Complete build sequence is [prepare, compile, reload, install, remove, list, javadoc, clean, dist, all, ]
+
+prepare:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+     [copy] No sources found.
+     [copy]  added as  is outdated.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/lib because it already exists.
+
+compile:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+    [javac] No sources found.
+     [copy] No sources found.
+     [copy]  added as  is outdated.
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+```
 
 ##### Install the project
     ant -v install
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `install' is [prepare, compile, install]
+Complete build sequence is [prepare, compile, install, reload, remove, list, javadoc, clean, dist, all, ]
+
+prepare:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+     [copy] No sources found.
+     [copy]  added as  is outdated.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/lib because it already exists.
+
+compile:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+    [javac] No sources found.
+     [copy] No sources found.
+     [copy]  added as  is outdated.
+
+install:
+   [deploy] OK - Deployed application at context path /hello
+
+BUILD SUCCESSFUL
+Total time: 1 second
+```
 
 ##### Reload the project
     ant -v reload
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `reload' is [prepare, compile, reload]
+Complete build sequence is [prepare, compile, reload, install, remove, list, javadoc, clean, dist, all, ]
+
+prepare:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF because it already exists.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+     [copy] No sources found.
+     [copy]  added as  is outdated.
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/lib because it already exists.
+
+compile:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+    [javac] No sources found.
+     [copy] No sources found.
+     [copy]  added as  is outdated.
+
+reload:
+   [reload] OK - Reloaded application at context path /hello
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+```
 
 ##### Remove the project
     ant -v remove
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `remove' is [remove]
+Complete build sequence is [remove, prepare, compile, reload, install, list, javadoc, clean, dist, all, ]
+
+remove:
+ [undeploy] OK - Undeployed application at context path /hello
+
+BUILD SUCCESSFUL
+Total time: 1 second
+```
 
 ##### Clean the project build directory
     ant -v clean
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `clean' is [clean]
+Complete build sequence is [clean, prepare, compile, reload, install, remove, list, javadoc, dist, all, ]
+
+clean:
+   [delete] Deleting directory /home/bachmeb/git/tc-aws/build
+   [delete] Deleting directory /home/bachmeb/git/tc-aws/build/WEB-INF/classes
+   [delete] Deleting directory /home/bachmeb/git/tc-aws/build/WEB-INF/lib
+   [delete] Deleting directory /home/bachmeb/git/tc-aws/build/WEB-INF
+   [delete] Deleting directory /home/bachmeb/git/tc-aws/build
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+```
 
 ##### Clean, prepare, and compile the project
     ant -v all
+```
+Apache Ant(TM) version 1.8.3 compiled on February 25 2015
+Trying the default build file: build.xml
+Buildfile: /home/bachmeb/git/tc-aws/build.xml
+Detected Java version: 1.7 in: /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/jre
+Detected OS: Linux
+parsing buildfile /home/bachmeb/git/tc-aws/build.xml with URI = file:/home/bachmeb/git/tc-aws/build.xml
+Project base dir set to: /home/bachmeb/git/tc-aws
+parsing buildfile jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml with URI = jar:file:/usr/share/java/ant.jar!/org/apache/tools/ant/antlib.xml from a zip file
+ [property] Loading /home/bachmeb/git/tc-aws/build.properties
+ [property] Unable to find property file: /home/bachmeb/git/tc-aws/build.properties
+ [property] Loading /home/bachmeb/build.properties
+Trying to override old definition of datatype resources
+Build sequence for target(s) `all' is [clean, prepare, compile, all]
+Complete build sequence is [clean, prepare, compile, all, reload, install, remove, list, javadoc, dist, ]
+
+clean:
+
+prepare:
+    [mkdir] Created dir: /home/bachmeb/git/tc-aws/build
+    [mkdir] Created dir: /home/bachmeb/git/tc-aws/build/WEB-INF
+    [mkdir] Created dir: /home/bachmeb/git/tc-aws/build/WEB-INF/classes
+     [copy] No sources found.
+     [copy]  omitted as /home/bachmeb/git/tc-aws/build is up to date.
+    [mkdir] Created dir: /home/bachmeb/git/tc-aws/build/WEB-INF/lib
+
+compile:
+    [mkdir] Skipping /home/bachmeb/git/tc-aws/build/WEB-INF/classes because it already exists.
+    [javac] No sources found.
+     [copy] No sources found.
+     [copy]  omitted as /home/bachmeb/git/tc-aws/build/WEB-INF/classes is up to date.
+
+all:
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+```
 
 ##### Create an index file
-    cd ~/git/projectfolder/web/
-    nano index.html
-
-##### Edit the XML file
+    cd ~/git/tc-aws/web/
+    vim index.html
 ```xml
 Hello <a href="./there">There</a>.
 ```
 ##### Make a Java class
-    mkdir -p src/com/example/words
-    nano -i src/com/example/words/HelloServlet.java
-  
-##### Code the class
+    mkdir -p src/com/example/greeting
+    vim src/com/example/greeting/HelloServlet.java
 ```java
-package com.example.cup;
+package com.example.greeting;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -1569,7 +1812,7 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloServlet extends HttpServlet {
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)$
+    public void doGet(HttpServletRequest request, HttpServletResponse response){
         PrintWriter out = response.getWriter();
         out.println("What's up?");
         out.close();
@@ -1577,8 +1820,35 @@ public class HelloServlet extends HttpServlet {
     
 }
 ```
-##### Reinstall the project
-    ant remove all install
 
-##### Use a web browser to view the web application
+##### Create a web.xml file
+    mkdir -p ~/git/tc-aws/web/WEB-INF
+    vim ~/git/tc-aws/web/WEB-INF/web.xml
+```xml
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+    <display-name>Hi There</display-name>
+    <servlet>
+        <servlet-name>greeting</servlet-name>
+        <servlet-class>com.example.greeting.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>greeting</servlet-name>
+        <url-pattern>/there</url-pattern>
+    </servlet-mapping>
+</web-app>
+##### Reinstall the project
+    cd ~/git/tc-aws
+    pwd
+    ant remove
+    ant all
+    ant install
+
+##### View the web app in Lynx
+    lynx http://localhost:8080/hello
+    
+##### View the app in a web browser on your PC
     http://[ec2.ipa.ddr.ess]:8080/hello
