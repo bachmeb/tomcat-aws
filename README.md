@@ -1789,16 +1789,16 @@ Total time: 0 seconds
 ```
 
 ##### Create an index file
-    cd ~/git/tc-aws/web/
+    cd web
     vim index.html
 ```xml
 Hello <a href="./there">There</a>.
 ```
 ##### Make a Java class
-    mkdir -p src/com/example/greeting
-    vim src/com/example/greeting/HelloServlet.java
+    mkdir -p ~/git/tc-aws/src/com/example/greeting
+    vim ~/git/tc-aws/src/com/example/greeting/HelloServlet.java
 ```java
-package com.example.greeting;
+package com.example.packname;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -1833,18 +1833,18 @@ public class HelloServlet extends HttpServlet {
 <web-app>
     <display-name>Hi There</display-name>
     <servlet>
-        <servlet-name>greeting</servlet-name>
-        <servlet-class>com.example.greeting.HelloServlet</servlet-class>
+        <servlet-name>sayhi</servlet-name>
+        <servlet-class>com.example.packname.HelloServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>greeting</servlet-name>
+        <servlet-name>sayhi</servlet-name>
         <url-pattern>/there</url-pattern>
     </servlet-mapping>
 </web-app>
+```
 ##### Reinstall the project
     cd ~/git/tc-aws
-    pwd
-    ant remove
+    ls
     ant all
     ant install
 
