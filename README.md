@@ -122,26 +122,57 @@ https://aws.amazon.com/ec2/
 ##### Show all of the environment variables
 	declare
 
-##### Show the current JAVA_HOME
-    env | grep JAVA_HOME
+##### Look for JAVA in the list of environmental variables
+	env | grep JAVA
+
+##### Echo the current JAVA_HOME
+	echo $JAVA_HOME
+
+##### Ask where is Java?
+	whereis java
 
 ##### Check the Java version
-    java -version
+	java -version
 
 ##### See if the Java compiler is installed
-    javac -version
+	whereis javac
+	javac -version
 
 ##### Search yum for openjdk
-    yum search openjdk
-
+	yum search openjdk
+	
 ##### Install the Open JDK version 1.7
-    install java-1.7.0-openjdk-devel.x86_64
+	sudo yum install java-1.7.0-openjdk-devel.x86_64
 
 ##### Check the Java compiler version
-    javac -version
+	javac -version
+
+##### Tell Linux to use the Java interpreter in the JDK 1.7
+	sudo /usr/sbin/alternatives --config java
+
+##### Read the symlinks in /usr/lib/jvm/
+	ls -l /usr/lib/jvm/
+
+##### Confirm that /usr/lib/jvm/java points to etc/alternatives/java_sdk
+	ls -l /usr/lib/jvm/java
+
+##### Confirm that /etc/alternatives/java_sdk points to /usr/lib/jvm/java-1.7.0-openjdk.x86_64
+	ls -l /etc/alternatives/java_sdk
+
+##### Confirm that /usr/lib/jvm/java-1.7.0-openjdk.x86_64 points to /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64
+	ls -l /usr/lib/jvm/java-1.7.0-openjdk.x86_64
+
+##### Confirm that /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64 is the installation directory for Java SDK 1.7
+	ls -l /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64
+
+##### Echo the $JAVA_HOME environment variable
+	echo $JAVA_HOME
 
 ##### Set the JAVA_HOME environment variable to the Open JDK directory
-    export JAVA_HOME='/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.91.x86_64/'
+	export JAVA_HOME='/usr/lib/jvm/java'
+
+##### Echo the $JAVA_HOME environment variable
+	echo $JAVA_HOME
 
 ##### List the available tomcat packages
     yum --enablerepo="*" list available | grep tomcat
