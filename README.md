@@ -989,10 +989,10 @@ manager.password=123
     wget https://tomcat.apache.org/tomcat-7.0-doc/appdev/build.xml.txt
     cp build.xml.txt build.xml
     nano build.xml
-*Give the project a name in the <project> declaration*  
+*Give the project a name in the project declaration*  
 *Set the app.name in build.properties*  
 *Set catalina.home in build.properties*  
-*Add includeantruntime="false" to the <javac> declaration*  
+*Add includeantruntime="false" to the javac declaration*  
 ```xml
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
