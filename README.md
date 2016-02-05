@@ -939,7 +939,8 @@ fi
     pwd
     vim build.properties
 
-##### Add Catalina home and manager username and password
+##### Add Catalina home, app name, manager username and password
+*These values are used by the build.xml file*
     catalina.home=/usr/share/tomcat7
     app.name=hello
     manager.username=abc
@@ -989,7 +990,10 @@ fi
     nano build.xml
 
 ##### Edit the XML file
-**
+*Give the project a name in the <project> declaration*  
+*Set the app.name in build.properties*  
+*Set catalina.home in build.properties*  
+*Add includeantruntime="false" to the <javac> declaration*  
 ```xml
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
