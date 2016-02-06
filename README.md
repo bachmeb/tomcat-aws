@@ -936,15 +936,15 @@ fi
 </tomcat-users>
 ```
 ##### Restart the Tomcat service to pick up the changes to tomcat-users.xml
-	sudo service tomcat7 status
+	sudo service tomcat7 restart
 	
 ##### Check environment variable for home directory
-    echo $HOME
+	echo $HOME
     
 ##### Create a Build Properties file in your home directory
-    cd ~
-    pwd
-    vim build.properties
+	cd ~
+	pwd
+	vim build.properties
 
 ##### Add Catalina home, app name, manager username and password to the build.properties file
 *These values are used by the build.xml file*  
