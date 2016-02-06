@@ -1618,6 +1618,10 @@ BUILD SUCCESSFUL
 Total time: 0 seconds
 ```
 
+##### Recursively change the mode of all the files in the project directory
+```
+chmod -R 775 ~/git/tc-aws
+```
 ##### Install the project
     ant -v install
 ```
