@@ -1810,6 +1810,7 @@ public class HelloServlet extends HttpServlet {
 ```
 
 ##### Clean, prepare, and compile the project
+    cd ~/git/tc-aws
     ant -v all
 ```
 Apache Ant(TM) version 1.8.3 compiled on February 25 2015
@@ -1857,4 +1858,5 @@ Total time: 0 seconds
     lynx http://localhost:8080/hello
     
 ##### View the app in a web browser on your PC
-    http://[ec2.ipa.ddr.ess]:8080/hello
+	wget http://ipinfo.io/ip -qO -
+	http://[ec2.ipa.ddr.ess]:8080/hello
