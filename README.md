@@ -961,8 +961,34 @@ manager.password=123
 ##### Create project folder
     mkdir -p ~/git/tc-aws
 
+##### Make a .gitignore file
+	cd git/tc-aws
+	nano .gitignore
+```
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# AWS 
+*.pem
+
+# Tomcat 
+build.properties
+
+# Ant
+build/
+dist/
+```
 ##### Initialize project repository
-    cd git/tc-aws
     git init
 
 ##### Create remote repository
