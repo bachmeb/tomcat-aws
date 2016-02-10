@@ -21,6 +21,7 @@ Build routine to deploy a new webapp using Tomcat on AWS
 * https://tomcat.apache.org/tomcat-7.0-doc/appdev/source.html
 * https://tomcat.apache.org/tomcat-7.0-doc/appdev/processes.html
 * http://cs.lmu.edu/~ray/notes/jw/
+* http://tomcat.apache.org/tomcat-3.3-doc/internal.html
 
 ##### Create a new vm
 https://aws.amazon.com/ec2/
