@@ -133,7 +133,7 @@ UTC=false
 	:$
 
 ##### Add development account to sudoers file
-	## ALLOW ME TO SUDO
+	## LET ME SUDO
 	[your new account name] ALL=(ALL) ALL
 
 ##### Switch to development user
