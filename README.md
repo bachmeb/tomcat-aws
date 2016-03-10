@@ -276,7 +276,7 @@ If you're seeing this, you've successfully installed Tomcat. Congratulations!
 ##### Read the localhost access log
 	sudo find /usr/share/tomcat7/logs/ -name localhost* -exec cat {} \;
 
-##### Add tomcat7 to autostart
+##### Set tomcat7 to start on run level 3
 	chkconfig
 	chkconfig | grep tomcat
 	sudo chkconfig tomcat7 on 
